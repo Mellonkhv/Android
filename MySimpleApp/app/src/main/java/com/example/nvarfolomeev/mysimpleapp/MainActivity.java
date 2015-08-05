@@ -3,6 +3,7 @@ package com.example.nvarfolomeev.mysimpleapp;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,15 +16,28 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     private boolean onClicked = false;
+    private boolean onLand = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            setContentView(R.layout.activity_main);
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            onLand = true;
+        }
 
         FirstFragment firstFragment = new FirstFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, firstFragment);
         ft.commit();
+
+        if(onLand) {
+            SecondFragment secondFragment = new SecondFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.fragment_container, secondFragment);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -58,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             ft.addToBackStack(null);
             ft.commit();
         }
-        else
+        else if (onClicked)
         {
             FirstFragment firstFragment = new FirstFragment();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
