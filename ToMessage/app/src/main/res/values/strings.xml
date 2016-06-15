@@ -1,0 +1,10 @@
+<resources>
+    <string name="head">Thanks for choosing our awesome bleend tea. How do you want it serving?</string>
+    <string name="app_name">To Message</string>
+    <string name="temperature">Temperature</string>
+    <string name="hot">Hot</string>
+    <string name="cold">Cold</string>
+    <string name="milk">Milk</string>
+    <string name="sugar">Sugar</string>
+    <string name="lemon">Lemon</string>
+</resources>
