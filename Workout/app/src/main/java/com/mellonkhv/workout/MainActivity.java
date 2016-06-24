@@ -1,15 +1,26 @@
 package com.mellonkhv.workout;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements WorkoutListFragment.WorkoutListListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WorkoutDetailFragment frag = (WorkoutDetailFragment) getFragmentManager().findFragmentById(R.id.detail_frag);
-        frag.setWorkout(1);
+
+    }
+
+    @Override
+    public void itemClicked(long id){
+        WorkoutDetailFragment details = new WorkoutDetailFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction(); // Начало транзакции
+        details.setWorkout(id); // Получаем конкретный фрагмент
+        transaction.replace(R.id.fragment_container, details); // Заменяем фрагмент
+        transaction.addToBackStack(null); // Добавляем фрагмент в стек возврата
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE); // Анимируем переход
+        transaction.commit(); // Подтверддаем транзакцию
     }
 }
