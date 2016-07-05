@@ -1,6 +1,7 @@
 package com.mellonkhv.workout;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +24,14 @@ public class WorkoutDetailFragment extends Fragment {
         if(savedInstanceState!=null){
             workoutId = savedInstanceState.getLong("workoutId");
         }
+
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        StopwatchFragment stopwatchFragment = new StopwatchFragment();
+        ft.replace(R.id.stopwatch_container, stopwatchFragment);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
 
